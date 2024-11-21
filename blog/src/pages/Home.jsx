@@ -20,7 +20,33 @@ const Home = () => {
     fetchData();
   },[cat])
 
-  // const posts = [
+  
+
+  return (
+    <div className="home">
+      <div className="posts">
+        {posts.map(post=>(
+            <div className="post" key={post.id}>
+                <div className="img">
+                    <img src={post.img} alt=""/>
+                </div>
+                <div className="content">
+                    <Link className="link" to={`/post/${post.id}`}>
+                        <h1>{post.title}</h1>
+                        <p>{post.desc}</p>
+                        <button>Read more</button>
+                    </Link>
+                </div>
+            </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Home;
+
+// const posts = [
   //   {
   //     id: 1,
   //     title: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
@@ -46,27 +72,3 @@ const Home = () => {
   //     img: "https://images.pexels.com/photos/6157049/pexels-photo-6157049.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   //   },
   // ];
-
-  return (
-    <div className="home">
-      <div className="posts">
-        {posts.map(post=>(
-            <div className="post" key={post.id}>
-                <div className="img">
-                    <img src={post.img} alt=""/>
-                </div>
-                <div className="content">
-                    <Link className="link" to={`/post/${post.id}`}>
-                        <h1>{post.title}</h1>
-                        <p>{post.desc}</p>
-                        <button>Read more</button>
-                    </Link>
-                </div>
-            </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default Home;

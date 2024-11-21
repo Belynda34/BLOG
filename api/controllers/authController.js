@@ -32,13 +32,13 @@ export const register = (req,res) => {
 export const login = (req,res) =>{ 
     //CHECK IF USER EXISTS 
     const q ="SELECT * FROM users WHERE  email=?"
-    connectDB.query(q,[req.body.email],(err,data)=>{
+    connectDB.query(q,[req.body.email],async (err,data)=>{
         if(err) return res.json(err);
         if(data.length === 0) return res.status(404).json("User not found");
         
         //CHECK PASSWORD
-        const isPasswrod = bcrypt.compare(req.body.password,data[0].pasword);
-        if(!isPasswrod) return res.status(400).json("Invalid email or password");
+        const isPasswordValid = await bcrypt.compare(req.body.password,data[0].password);
+        if(!isPasswordValid) return res.status(400).json("Invalid email or password");
 
         const token = jwt.sign({id:data[0].id},"jwtkey"); 
         const {password,...other}=data[0];
